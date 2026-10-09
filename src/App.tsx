@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
+import { ExperienceImpactSection } from './components/ExperienceImpactSection';
 import { ServicesSection } from './components/ServicesSection';
 import { ProjectsSection } from './components/ProjectsSection';
 import { TechStackSection } from './components/TechStackSection';
@@ -35,10 +36,13 @@ export default function App() {
           onTestVoiceAgent={() => setVoiceSimOpen(true)}
         />
 
-        {/* 2. About Us Section */}
+        {/* 2. About Us / Company Introduction Section */}
         <AboutSection
           onOpenBooking={() => setBookingOpen(true)}
         />
+
+        {/* 2.5. Proven Impact & Milestones */}
+        <ExperienceImpactSection />
 
         {/* 3. Core Services / Expertise */}
         <ServicesSection

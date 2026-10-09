@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ProjectItem } from '../types';
 import { ProjectDetailModal } from './ProjectDetailModal';
-import { ArrowUpRight, Sparkles, Smartphone, Film, Workflow, Layers, ExternalLink } from 'lucide-react';
+import { GenEmojiAvatar } from './GenEmojiAvatar';
+import { ArrowUpRight, ArrowLeft, ArrowRight, Sparkles, Smartphone, Film, Workflow } from 'lucide-react';
 
 interface ProjectsSectionProps {
-  onOpenBooking: () => void;
+  onOpenBooking?: () => void;
 }
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenBooking }) => {
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
-  const [activeFilter, setActiveFilter] = useState<'All' | 'AI' | 'Mobile' | 'Automation'>('All');
 
   const projects: ProjectItem[] = [
     {
@@ -18,7 +19,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenBooking 
       name: 'Riya.ai',
       subtitle: 'Intelligent Emotional Wellness & Multimodal Voice Companion',
       description: 'An intelligent mobile application delivering empathic AI conversational companionship, real-time voice sentiment tracking, and personalized daily mental wellness routines.',
-      tags: ['AI', 'Mobile', 'Sarvam AI', 'Voice'],
+      tags: ['AI', 'Mobile', 'Sarvam AI', 'Voice', 'WebRTC'],
       category: 'Mobile',
       accentGradient: 'from-pink-500 to-rose-600',
       tech: ['React Native', 'Sarvam Multilingual LLM', 'WebRTC Audio', 'Firebase Firestore', 'GCP'],
@@ -49,7 +50,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenBooking 
       name: 'MikMok',
       subtitle: 'Dynamic Short-Video Creation Mobile Platform',
       description: 'A high-speed, dynamic short-video mobile creation engine equipped with real-time AI effects, automated beat-matching audio, and instant serverless video transcoding.',
-      tags: ['Mobile', 'AI', 'Video Engine', 'Kodular'],
+      tags: ['Mobile', 'AI', 'Video Engine', 'Kodular', 'FFmpeg'],
       category: 'Mobile',
       accentGradient: 'from-purple-600 to-pink-500',
       tech: ['Kodular & Android Native', 'Replicate GPU Models', 'FFmpeg GPU Cluster', 'Vercel Edge', 'GCP Storage'],
@@ -108,147 +109,163 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenBooking 
     },
   ];
 
-  const filteredProjects = activeFilter === 'All'
-    ? projects
-    : projects.filter((p) => p.tags.includes(activeFilter) || p.category === activeFilter);
+  const currentProject = projects[activeProjectIndex];
 
   return (
-    <section id="originals" className="py-20 md:py-28 bg-white border-b border-slate-200/80 relative">
+    <section id="originals" className="py-20 md:py-28 bg-white border-b border-slate-200/90 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header & Filter Controls */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
-          <div className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-widest text-[#e91e63] mb-3">
-              Featured Originals
+        {/* Editorial Section Header from Video */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#e91e63] font-mono mb-2">
+              // 03. TECHNICAL PROJECTS
             </p>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-950 tracking-tight">
-              Selected Works & Shipped Platforms
+              Featured <span className="font-script text-[#e91e63] font-bold text-4xl sm:text-5xl md:text-6xl">Originals.</span>
             </h2>
-            <p className="text-base sm:text-lg text-slate-600 mt-3">
-              Real-world systems engineered for scale, reliability, and measurable client ROI.
-            </p>
           </div>
 
-          {/* Interactive Filter Tabs (Buttons with click handlers) */}
-          <div className="flex items-center gap-1.5 p-1.5 bg-slate-100 rounded-full shrink-0 border border-slate-200/80 self-start md:self-auto">
-            {(['All', 'AI', 'Mobile', 'Automation'] as const).map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all cursor-pointer ${
-                  activeFilter === filter
-                    ? 'bg-white text-slate-950 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
+          {/* Quick Pagination Controls */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setActiveProjectIndex((prev) => (prev > 0 ? prev - 1 : projects.length - 1))}
+              className="p-2.5 rounded-full border border-slate-200 hover:border-slate-400 bg-white hover:bg-slate-50 transition-colors cursor-pointer"
+              aria-label="Previous project"
+            >
+              <ArrowLeft className="w-4 h-4 text-slate-700" />
+            </button>
+            <button
+              onClick={() => setActiveProjectIndex((prev) => (prev < projects.length - 1 ? prev + 1 : 0))}
+              className="p-2.5 rounded-full border border-slate-200 hover:border-slate-400 bg-white hover:bg-slate-50 transition-colors cursor-pointer"
+              aria-label="Next project"
+            >
+              <ArrowRight className="w-4 h-4 text-slate-700" />
+            </button>
           </div>
         </div>
 
-        {/* Projects Cards Grid (with Horizontal Scroll support on smaller devices) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="group flex flex-col justify-between bg-[#faf9f6] rounded-3xl p-6 sm:p-7 border border-slate-200 hover:border-pink-300 hover:shadow-[0_16px_40px_rgba(233,30,99,0.08)] transition-all duration-300 relative"
-            >
-              <div>
-                {/* Visual Banner Thumbnail */}
-                <div className={`h-44 rounded-2xl bg-gradient-to-tr ${project.accentGradient} p-6 flex flex-col justify-between text-white relative overflow-hidden mb-6 shadow-xs`}>
-                  {/* Subtle Background Pattern */}
-                  <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
-                  
-                  <div className="flex items-center justify-between z-10">
-                    <span className="px-3 py-1 rounded-full bg-black/25 backdrop-blur-md text-[11px] font-semibold tracking-wide border border-white/20">
-                      {project.category}
-                    </span>
-                    <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
-                      {project.id === 'riya' && <Smartphone className="w-4 h-4 text-white" />}
-                      {project.id === 'mikmok' && <Film className="w-4 h-4 text-white" />}
-                      {project.id === 'workflows' && <Workflow className="w-4 h-4 text-white" />}
-                    </div>
-                  </div>
-
-                  <div className="z-10">
-                    <span className="text-[11px] uppercase tracking-wider text-white/80 font-semibold block">
-                      Production Release
-                    </span>
-                    <h3 className="font-display text-2xl font-black text-white tracking-tight">
-                      {project.name}
-                    </h3>
-                  </div>
+        {/* Carousel Card & Avatar Split (Matching Video Frame 00:08 - 00:10) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          {/* Main Featured Project Card (Left 8 cols) */}
+          <div className="lg:col-span-8">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentProject.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.25 }}
+                className="bg-[#faf9f6] rounded-3xl p-7 sm:p-9 border border-slate-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.03)] space-y-6"
+              >
+                {/* Red Badge Bar from Video */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="px-3 py-1 rounded-full bg-[#e91e63] text-white text-[11px] font-bold uppercase tracking-wider font-mono">
+                    LIVE SYSTEM
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-slate-900 text-white text-[11px] font-bold uppercase tracking-wider font-mono">
+                    {currentProject.category}
+                  </span>
+                  <span className="text-xs text-slate-500 font-mono ml-auto">
+                    0{activeProjectIndex + 1} / 0{projects.length}
+                  </span>
                 </div>
 
-                {/* Subtitle & Description */}
-                <h4 className="text-base font-bold text-slate-900 group-hover:text-[#e91e63] transition-colors">
-                  {project.subtitle}
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 line-clamp-3 leading-relaxed">
-                  {project.description}
+                {/* Title & Subtitle */}
+                <div>
+                  <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-950">
+                    {currentProject.name}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-semibold text-[#e91e63] mt-1 font-mono uppercase tracking-wide">
+                    {currentProject.subtitle}
+                  </p>
+                </div>
+
+                {/* Description */}
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+                  {currentProject.description}
                 </p>
 
-                {/* Quantitative Stats */}
-                <div className="grid grid-cols-2 gap-3 py-4 my-4 border-y border-slate-200/80">
-                  {project.stats.slice(0, 2).map((st, i) => (
+                {/* Quantitative Metrics Bar */}
+                <div className="grid grid-cols-3 gap-3 py-3 border-y border-slate-200">
+                  {currentProject.stats.map((st, i) => (
                     <div key={i}>
-                      <span className="text-[11px] text-slate-500 font-medium">{st.label}</span>
-                      <p className="font-display text-base sm:text-lg font-bold text-slate-900 tabular-nums">
+                      <span className="text-[11px] text-slate-500 font-semibold uppercase block truncate">
+                        {st.label}
+                      </span>
+                      <p className="font-display text-lg sm:text-xl font-bold text-slate-950 tabular-nums mt-0.5">
                         {st.value}
                       </p>
                     </div>
                   ))}
                 </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.tags.map((tag) => (
+                {/* Pill Tags */}
+                <div className="flex flex-wrap gap-1.5">
+                  {currentProject.tags.map((tg) => (
                     <span
-                      key={tag}
-                      className="px-2.5 py-0.5 rounded-full bg-white border border-slate-200 text-[11px] font-medium text-slate-700"
+                      key={tg}
+                      className="px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 font-mono"
                     >
-                      {tag}
+                      {tg}
                     </span>
                   ))}
                 </div>
-              </div>
 
-              {/* Action Button */}
-              <div>
+                {/* Actions */}
+                <div className="pt-2 flex flex-wrap items-center gap-3">
+                  <button
+                    onClick={() => setSelectedProject(currentProject)}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider cursor-pointer shadow-xs"
+                  >
+                    <span>View Architecture Case Study</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </button>
+
+                  <a
+                    href="https://app.auraai.sbs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full bg-white border border-slate-300 hover:border-pink-300 text-slate-800 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    <span>Build Similar on Aura</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#e91e63]" />
+                  </a>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Pagination Dots below card (as seen in video) */}
+            <div className="flex items-center justify-center gap-2 pt-6">
+              {projects.map((_, i) => (
                 <button
-                  onClick={() => setSelectedProject(project)}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-white hover:bg-slate-900 text-slate-900 hover:text-white border border-slate-300 hover:border-slate-900 text-xs font-semibold transition-all shadow-xs cursor-pointer"
-                >
-                  <span>View Full Architecture Case Study</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Bottom CTA Banner */}
-        <div className="mt-16 p-8 rounded-3xl bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="font-display text-xl sm:text-2xl font-bold">
-              Have a custom AI or mobile platform in mind?
-            </h3>
-            <p className="text-sm text-slate-400 mt-1">
-              We design and build from day zero to production release with full source code handover.
-            </p>
+                  key={i}
+                  onClick={() => setActiveProjectIndex(i)}
+                  className={`transition-all rounded-full cursor-pointer ${
+                    activeProjectIndex === i
+                      ? 'w-8 h-2.5 bg-[#e91e63]'
+                      : 'w-2.5 h-2.5 bg-slate-300 hover:bg-slate-400'
+                  }`}
+                  aria-label={`Go to project ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
-          <button
-            onClick={onOpenBooking}
-            className="shrink-0 px-6 py-3 rounded-full bg-[#e91e63] hover:bg-[#d81557] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-pink-500/25 cursor-pointer whitespace-nowrap"
-          >
-            Start Your Build
-          </button>
+
+          {/* Standing 3D Avatar (Right 4 cols matching video) */}
+          <div className="lg:col-span-4 flex flex-col items-center justify-center">
+            <div className="w-full max-w-xs p-6 rounded-3xl bg-[#faf9f6] border border-slate-200 text-center">
+              <span className="text-xs font-bold text-slate-500 font-mono block mb-2">
+                PROJECT SPOTLIGHT
+              </span>
+              <GenEmojiAvatar variant="standing" className="my-2" />
+              <p className="text-xs text-slate-600 mt-3 font-semibold">
+                Engineered with Sarvam Multilingual LLMs & High-Throughput GCP Nodes.
+              </p>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -257,7 +274,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenBooking 
       <ProjectDetailModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
-        onOpenBooking={onOpenBooking}
+        onOpenBooking={() => onOpenBooking && onOpenBooking()}
       />
     </section>
   );

@@ -19,6 +19,10 @@
     font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
     letter-spacing: -0.025em;
   }
+
+  .font-script {
+    font-family: 'Caveat', cursive;
+  }
 }
 
 /* Infinite Marquee Animations */

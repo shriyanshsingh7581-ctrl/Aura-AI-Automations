@@ -106,16 +106,16 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
     <section id="services" className="py-20 md:py-28 bg-[#faf9f6] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="max-w-2xl mb-12 md:mb-16">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#e91e63] mb-3">
-            Core Expertise
+        {/* Section Header from Video */}
+        <div className="max-w-3xl mb-12 md:mb-16">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#e91e63] font-mono mb-2">
+            // 04. TECHNICAL CAPABILITIES & STACK
           </p>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-950 tracking-tight">
-            Specialized Engineering & AI Capabilities
+            Core <span className="font-script text-[#e91e63] font-bold text-4xl sm:text-5xl md:text-6xl">Expertise.</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 mt-4">
-            Explore how we build automated intelligence, spatial interfaces, and resilient infrastructure.
+          <p className="text-sm sm:text-base text-slate-600 mt-3 font-normal">
+            Specialized engineering capabilities across zero-latency conversational voice, spatial web flagships, native mobile, and GPU cloud infrastructure.
           </p>
         </div>
 

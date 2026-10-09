@@ -66,15 +66,15 @@ export const ContactSection: React.FC = () => {
     <section id="contact" className="py-20 md:py-28 bg-white border-t border-slate-200/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header from Video */}
         <div className="max-w-2xl mb-12 md:mb-16">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#e91e63] mb-3">
-            Get In Touch
+          <p className="text-xs font-bold uppercase tracking-wider text-[#e91e63] font-mono mb-2">
+            // 05. CONTACT
           </p>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-950 tracking-tight">
-            Let's Engineer Your Next High-Performance System
+            Get In <span className="font-script text-[#e91e63] font-bold text-4xl sm:text-5xl md:text-6xl">Touch.</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 mt-3">
+          <p className="text-sm sm:text-base text-slate-600 mt-2 font-normal">
             Tell us about your project, target launch date, and technical vision. We respond to all inquiries within 2 hours.
           </p>
         </div>
@@ -232,7 +232,18 @@ export const ContactSection: React.FC = () => {
                     )}
                   </div>
 
-                  {/* Submit Button: Full width, vibrant pink/red accent color */}
+                  {/* Permission Checkbox from Video */}
+                  <label className="flex items-start gap-2.5 text-xs text-slate-600 cursor-pointer pt-1">
+                    <input
+                      type="checkbox"
+                      defaultChecked
+                      required
+                      className="mt-0.5 rounded border-slate-300 text-[#e91e63] focus:ring-[#e91e63]"
+                    />
+                    <span>I give permission to contact me via this email address.</span>
+                  </label>
+
+                  {/* Submit Button: Full width, vibrant pink/red accent color as in video */}
                   <div className="pt-2">
                     <button
                       type="submit"
@@ -242,12 +253,11 @@ export const ContactSection: React.FC = () => {
                       {isSubmitting ? (
                         <>
                           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <span>Routing Inbound Message...</span>
+                          <span>Sending Message...</span>
                         </>
                       ) : (
                         <>
-                          <span>Submit Project Inquiry</span>
-                          <Send className="w-4 h-4" />
+                          <span>SEND MESSAGE →</span>
                         </>
                       )}
                     </button>
