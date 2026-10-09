@@ -14,8 +14,8 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenBooking 
 
   const projects: ProjectItem[] = [
     {
-      id: 'muskaan',
-      name: 'Muskaan.ai',
+      id: 'riya',
+      name: 'Riya.ai',
       subtitle: 'Intelligent Emotional Wellness & Multimodal Voice Companion',
       description: 'An intelligent mobile application delivering empathic AI conversational companionship, real-time voice sentiment tracking, and personalized daily mental wellness routines.',
       tags: ['AI', 'Mobile', 'Sarvam AI', 'Voice'],
@@ -170,7 +170,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenBooking 
                       {project.category}
                     </span>
                     <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform">
-                      {project.id === 'muskaan' && <Smartphone className="w-4 h-4 text-white" />}
+                      {project.id === 'riya' && <Smartphone className="w-4 h-4 text-white" />}
                       {project.id === 'mikmok' && <Film className="w-4 h-4 text-white" />}
                       {project.id === 'workflows' && <Workflow className="w-4 h-4 text-white" />}
                     </div>

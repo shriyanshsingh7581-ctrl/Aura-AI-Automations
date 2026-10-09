@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { AuraLogo } from './AuraLogo';
+import { SocialButtonsRow } from './SocialLinks';
 
 interface NavbarProps {
   onOpenBooking?: () => void;
@@ -17,18 +19,16 @@ export const Navbar: React.FC<NavbarProps> = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#faf9f6]/85 border-b border-slate-200/70 transition-all">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#faf9f6]/90 border-b border-slate-200/70 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-8">
         
-        {/* Zone 1: Single text element wordmark */}
+        {/* Zone 1: Official Brand Logo */}
         <a 
           href="#" 
-          className="group flex items-center gap-2.5 text-xl font-bold tracking-tight text-slate-900 whitespace-nowrap shrink-0 select-none"
+          className="group flex items-center whitespace-nowrap shrink-0 select-none py-1"
+          aria-label="Aura AI Automations Home"
         >
-          <span className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#e91e63] to-[#f43f5e] flex items-center justify-center text-white text-sm font-black shadow-md shadow-pink-500/20 group-hover:scale-105 transition-transform">
-            A
-          </span>
-          <span className="font-display">Aura AI Automations</span>
+          <AuraLogo height={34} />
         </a>
 
         {/* Zone 2: 4-5 concise single-line text links */}
@@ -44,8 +44,12 @@ export const Navbar: React.FC<NavbarProps> = () => {
           ))}
         </nav>
 
-        {/* Zone 3: Single primary action button */}
+        {/* Zone 3: Socials & Primary Action */}
         <div className="flex items-center gap-3 shrink-0">
+          <div className="hidden lg:flex items-center">
+            <SocialButtonsRow />
+          </div>
+
           <a
             href="https://app.auraai.sbs"
             target="_blank"
@@ -83,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
               </a>
             ))}
           </div>
-          <div className="pt-2">
+          <div className="pt-2 space-y-3">
             <a
               href="https://app.auraai.sbs"
               target="_blank"
@@ -94,6 +98,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
               <span>Create Voice Calling Agent</span>
               <ArrowUpRight className="w-4 h-4" />
             </a>
+
+            <div className="flex items-center justify-center pt-1">
+              <SocialButtonsRow />
+            </div>
           </div>
         </div>
       )}

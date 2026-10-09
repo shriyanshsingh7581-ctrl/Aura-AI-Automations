@@ -1,5 +1,7 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { AuraLogo } from './AuraLogo';
+import { SocialButtonsRow } from './SocialLinks';
 
 interface FooterProps {
   onOpenBooking: () => void;
@@ -15,21 +17,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
           
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <span className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#e91e63] to-[#f43f5e] flex items-center justify-center text-white text-sm font-black shadow-md shadow-pink-500/20">
-                A
-              </span>
-              <span className="font-display text-xl font-bold text-white tracking-tight">
-                Aura AI Automations
-              </span>
+            <div className="py-1">
+              <AuraLogo height={40} theme="dark" />
             </div>
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
               Turning ideas into scalable code & automated AI systems. We build high-throughput AI voice receptionists, spatial 3D web flagships, and autonomous cloud workflows.
             </p>
-            <div className="pt-2">
-              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800">
+            <div className="pt-2 flex flex-col gap-3">
+              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 w-fit">
                 Supported by the Sarvam AI Startup Program
               </span>
+
+              {/* Social Links with Icons */}
+              <div className="pt-2">
+                <span className="text-xs font-semibold text-slate-400 block mb-2">Connect Directly:</span>
+                <SocialButtonsRow darkTheme={true} />
+              </div>
             </div>
           </div>
 
@@ -75,7 +78,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#originals" className="hover:text-white transition-colors">
-                  Muskaan.ai (Multimodal Companion)
+                  Riya.ai (Multimodal Companion)
                 </a>
               </li>
               <li>

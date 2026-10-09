@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { GenEmojiAvatar } from './GenEmojiAvatar';
 import { ContactFormData } from '../types';
 import { Send, CheckCircle2, Mail, Clock, ShieldCheck, Sparkles, MessageSquare } from 'lucide-react';
+import { SOCIAL_LINKS, SocialIcon } from './SocialLinks';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -289,14 +290,37 @@ export const ContactSection: React.FC = () => {
                   </ul>
                 </div>
 
-                {/* Direct Connect Chips */}
+                {/* Direct Connect Channels */}
+                <div className="pt-2 border-t border-slate-200">
+                  <span className="text-xs font-bold text-slate-900 block mb-2 text-left">
+                    Direct Founder Connect:
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {SOCIAL_LINKS.map((link) => (
+                      <a
+                        key={link.name}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 transition-all hover:scale-102 shadow-2xs ${link.bgClass}`}
+                      >
+                        <span className={link.colorClass}>
+                          <SocialIcon type={link.icon} className="w-4 h-4 shrink-0" />
+                        </span>
+                        <span className="truncate">{link.name}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Email Direct */}
                 <div className="p-3 bg-white rounded-2xl border border-slate-200 flex items-center justify-between text-xs">
                   <span className="text-slate-500">Need immediate assistance?</span>
                   <a
-                    href="mailto:lead@aurai.tech"
+                    href="mailto:contact@aurai.tech"
                     className="font-bold text-[#e91e63] hover:underline"
                   >
-                    lead@aurai.tech
+                    contact@aurai.tech
                   </a>
                 </div>
               </div>
