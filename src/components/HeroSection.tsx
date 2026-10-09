@@ -55,6 +55,9 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         </div>
       </div>
 
+      {/* Luxury Ambient Radial Glow in Hero */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-pink-500/12 via-orange-400/8 to-rose-300/10 rounded-full blur-3xl pointer-events-none -z-10" />
+
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
         
         {/* Sarvam AI Backed Trust Kicker */}
@@ -62,7 +65,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-pink-200/60 shadow-xs mb-8 text-xs font-semibold text-slate-800 backdrop-blur-md"
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/95 border border-pink-200/80 shadow-xs mb-8 text-xs font-semibold text-slate-800 backdrop-blur-md"
         >
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e91e63] opacity-75"></span>
@@ -89,7 +92,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-950 mb-5"
+          className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-extrabold tracking-tight text-slate-950 mb-5 leading-[1.05]"
           style={{ textWrap: 'balance' }}
         >
           Aura AI Automations
@@ -111,18 +114,21 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
-          className="flex items-center justify-center w-full mb-14"
+          className="flex flex-col items-center justify-center w-full mb-14 space-y-3"
         >
           <a
             href="https://app.auraai.sbs"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4.5 text-base font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#e91e63] via-[#f43f5e] to-[#e11d48] hover:opacity-95 active:scale-98 rounded-full transition-all shadow-[0_12px_32px_rgba(233,30,99,0.38)] hover:shadow-[0_16px_40px_rgba(233,30,99,0.48)] cursor-pointer group"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 text-base font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#e91e63] via-[#f43f5e] to-[#e11d48] hover:opacity-95 active:scale-98 rounded-full transition-all shadow-[0_14px_35px_rgba(233,30,99,0.38)] hover:shadow-[0_20px_45px_rgba(233,30,99,0.5)] cursor-pointer group"
           >
-            <Sparkles className="w-5 h-5 text-white" />
+            <Sparkles className="w-5 h-5 text-white animate-pulse" />
             <span>Create Voice Calling Agent</span>
             <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </a>
+          <span className="text-xs text-slate-400 font-medium">
+            Deploy on <span className="text-slate-600 font-semibold font-mono">app.auraai.sbs</span> • Sub-500ms OmniDimension Voice
+          </span>
         </motion.div>
 
         {/* Dynamic Element: Auto-scrolling pill-shaped tags showing expertise */}
