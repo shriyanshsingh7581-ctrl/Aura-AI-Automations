@@ -88,6 +88,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
                   Workflow Automations (n8n & Firebase)
                 </a>
               </li>
+              <li>
+                <a 
+                  href="https://app.auraai.sbs" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-1.5 text-pink-400 hover:text-pink-300 font-semibold transition-colors"
+                >
+                  <span>Launch Platform (app.auraai.sbs)</span>
+                  <span className="text-xs">↗</span>
+                </a>
+              </li>
               <li className="pt-2">
                 <a 
                   href="mailto:contact@aurai.tech" 

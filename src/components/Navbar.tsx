@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
-  onOpenBooking: () => void;
+  onOpenBooking?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -44,15 +44,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
           ))}
         </nav>
 
-        {/* Zone 3: 1 primary action */}
+        {/* Zone 3: Single primary action button */}
         <div className="flex items-center gap-3 shrink-0">
-          <button
-            onClick={onOpenBooking}
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#e91e63] hover:bg-[#d81557] active:scale-98 rounded-full transition-all shadow-[0_4px_16px_rgba(233,30,99,0.35)] whitespace-nowrap shrink-0 cursor-pointer"
+          <a
+            href="https://app.auraai.sbs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-[#e91e63] hover:bg-[#d81557] active:scale-98 rounded-full transition-all shadow-[0_4px_16px_rgba(233,30,99,0.35)] whitespace-nowrap shrink-0 group cursor-pointer"
           >
-            <span>Book Discovery Call</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
+            <span>Create Voice Calling Agent</span>
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
 
           {/* Mobile hamburger button */}
           <button
@@ -82,16 +84,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             ))}
           </div>
           <div className="pt-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenBooking();
-              }}
-              className="w-full flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold uppercase tracking-wider text-white bg-[#e91e63] hover:bg-[#d81557] rounded-full shadow-md shadow-pink-500/25"
+            <a
+              href="https://app.auraai.sbs"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-bold uppercase tracking-wider text-white bg-[#e91e63] hover:bg-[#d81557] rounded-full shadow-md shadow-pink-500/25"
             >
-              <span>Book Discovery Call</span>
+              <span>Create Voice Calling Agent</span>
               <ArrowUpRight className="w-4 h-4" />
-            </button>
+            </a>
           </div>
         </div>
       )}

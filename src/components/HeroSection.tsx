@@ -1,19 +1,15 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { GenEmojiAvatar } from './GenEmojiAvatar';
-import { ArrowRight, Sparkles, Volume2, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Zap } from 'lucide-react';
 
 interface HeroSectionProps {
-  onOpenBooking: () => void;
-  onExploreOriginals: () => void;
-  onTestVoiceAgent: () => void;
+  onOpenBooking?: () => void;
+  onExploreOriginals?: () => void;
+  onTestVoiceAgent?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({
-  onOpenBooking,
-  onExploreOriginals,
-  onTestVoiceAgent,
-}) => {
+export const HeroSection: React.FC<HeroSectionProps> = () => {
   const backgroundMarqueeWords = [
     'AURA AI',
     '3D WEBSITES',
@@ -110,35 +106,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           Turning ideas into scalable code & automated AI systems.
         </motion.p>
 
-        {/* Primary Action Buttons */}
+        {/* Single Primary Action Button: Create Voice Calling Agent -> app.auraai.sbs */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-14"
+          className="flex items-center justify-center w-full mb-14"
         >
-          <button
-            onClick={onOpenBooking}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 text-sm font-semibold uppercase tracking-wider text-white bg-[#e91e63] hover:bg-[#d81557] active:scale-98 rounded-full transition-all shadow-[0_10px_25px_rgba(233,30,99,0.3)] cursor-pointer group"
+          <a
+            href="https://app.auraai.sbs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4.5 text-base font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#e91e63] via-[#f43f5e] to-[#e11d48] hover:opacity-95 active:scale-98 rounded-full transition-all shadow-[0_12px_32px_rgba(233,30,99,0.38)] hover:shadow-[0_16px_40px_rgba(233,30,99,0.48)] cursor-pointer group"
           >
-            <span>Schedule Discovery Call</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-
-          <button
-            onClick={onExploreOriginals}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-semibold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300/80 active:scale-98 rounded-full transition-all shadow-xs cursor-pointer"
-          >
-            <span>Explore Originals</span>
-          </button>
-
-          <button
-            onClick={onTestVoiceAgent}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-semibold uppercase tracking-wider text-[#e91e63] bg-pink-50/80 hover:bg-pink-100/90 border border-pink-200/70 rounded-full transition-colors cursor-pointer"
-          >
-            <Volume2 className="w-4 h-4 animate-pulse" />
-            <span>Try AI Voice Demo</span>
-          </button>
+            <Sparkles className="w-5 h-5 text-white" />
+            <span>Create Voice Calling Agent</span>
+            <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          </a>
         </motion.div>
 
         {/* Dynamic Element: Auto-scrolling pill-shaped tags showing expertise */}
