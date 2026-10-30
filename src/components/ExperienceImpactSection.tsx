@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { AvatarDisplay } from './AvatarDisplay';
 import { GenEmojiAvatar } from './GenEmojiAvatar';
 import { CheckCircle2, ArrowUpRight, Zap, ShieldCheck, Activity } from 'lucide-react';
 
@@ -65,15 +66,25 @@ export const ExperienceImpactSection: React.FC = () => {
         {/* Split Screen matching Video: Avatar Left, Interactive Cards Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          {/* Standing 3D Avatar (Video Frame 00:06 - 00:07) */}
+          {/* Standing 3D Avatar inside Red Feature Card with Soft Cream Container */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center">
-            <div className="relative w-full max-w-sm p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-[0_12px_36px_rgba(0,0,0,0.03)] text-center">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-50 border border-pink-200 text-xs font-bold text-[#e91e63] mb-3">
+            <div className="relative w-full max-w-sm p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#d90429] via-[#c90426] to-[#9b001a] text-white shadow-[0_16px_40px_rgba(217,4,41,0.25)] border border-red-400/30 text-center">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-bold text-white mb-3">
                 <Activity className="w-3.5 h-3.5 animate-pulse" />
-                <span>Verified System Milestones</span>
+                <span>Verified Milestones</span>
               </div>
-              <GenEmojiAvatar variant="standing" className="my-2" />
-              <p className="text-xs text-slate-500 mt-3 font-mono">
+
+              {/* Soft Cream Glassmorphic Pill Container on Crimson Red */}
+              <div className="bg-[#FAF8F5] rounded-2xl p-4 shadow-xl my-2 flex items-center justify-center">
+                <AvatarDisplay
+                  src="/avatars/avatar-skills.png"
+                  alt="Aura AI Automations Core Skills & Architecture"
+                  size="md"
+                  floating={true}
+                />
+              </div>
+
+              <p className="text-xs text-red-100 font-mono mt-3">
                 Proven architecture shipped across voice, web, and mobile.
               </p>
             </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { AvatarDisplay } from './AvatarDisplay';
 import { GenEmojiAvatar } from './GenEmojiAvatar';
 import { 
   Award, 
@@ -252,8 +253,13 @@ export const AboutSection: React.FC<AboutSectionProps> = () => {
                 <span className="font-bold text-[#e91e63]">Sarvam AI Startup Fellow</span>
               </div>
 
-              {/* Standing 3D Avatar */}
-              <GenEmojiAvatar variant="standing" className="my-2" />
+              {/* Sitting & Waving 3D Avatar (Founder) */}
+              <AvatarDisplay
+                src="/avatars/avatar-about.png"
+                alt="Shriyansh Singh Rajpoot - Founder sitting and waving"
+                size="lg"
+                className="my-2"
+              />
 
               {/* Live Status Indicators */}
               <div className="mt-4 pt-4 border-t border-slate-200/80 space-y-2 text-left">

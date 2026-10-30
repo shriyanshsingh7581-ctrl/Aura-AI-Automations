@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { AvatarDisplay } from './AvatarDisplay';
 import { GenEmojiAvatar } from './GenEmojiAvatar';
 import { ContactFormData } from '../types';
 import { Send, CheckCircle2, Mail, Clock, ShieldCheck, Sparkles, MessageSquare } from 'lucide-react';
@@ -277,13 +278,18 @@ export const ContactSection: React.FC = () => {
           <div className="lg:col-span-5 flex flex-col items-center">
             <div className="w-full p-6 sm:p-8 rounded-3xl bg-[#faf9f6] border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.03)] flex flex-col items-center text-center">
               
-              {/* Avatar Anchor */}
-              <GenEmojiAvatar variant="welcoming" className="my-2" />
+              {/* Avatar Holding Phone & Waving */}
+              <AvatarDisplay
+                src="/avatars/avatar-contact.png"
+                alt="Aura AI Automations Engineer holding phone and waving to connect"
+                size="md"
+                className="my-2"
+              />
 
               {/* Founder / Architect Guarantee */}
               <div className="mt-4 pt-4 border-t border-slate-200 w-full space-y-3">
                 <div className="text-left">
-                  <h4 className="text-sm font-bold text-slate-900">What happens next?</h4>
+                  <h3 className="text-sm font-bold text-slate-900">What happens next?</h3>
                   <ul className="mt-2 space-y-2 text-xs text-slate-600">
                     <li className="flex items-center gap-2">
                       <Clock className="w-3.5 h-3.5 text-[#e91e63] shrink-0" />

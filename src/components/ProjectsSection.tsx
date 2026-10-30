@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ProjectItem } from '../types';
 import { ProjectDetailModal } from './ProjectDetailModal';
+import { AvatarDisplay } from './AvatarDisplay';
 import { GenEmojiAvatar } from './GenEmojiAvatar';
 import { ArrowUpRight, ArrowLeft, ArrowRight, Sparkles, Smartphone, Film, Workflow } from 'lucide-react';
 
@@ -259,7 +260,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onOpenBooking 
               <span className="text-xs font-bold text-slate-500 font-mono block mb-2">
                 PROJECT SPOTLIGHT
               </span>
-              <GenEmojiAvatar variant="standing" className="my-2" />
+              <AvatarDisplay
+                src="/avatars/avatar-projects.png"
+                alt="AI Engineer holding laptop with live project architecture"
+                size="md"
+                className="my-2"
+              />
               <p className="text-xs text-slate-600 mt-3 font-semibold">
                 Engineered with Sarvam Multilingual LLMs & High-Throughput GCP Nodes.
               </p>

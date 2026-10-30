@@ -142,9 +142,9 @@ export const TechStackSection: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h4 className="font-display text-xl font-bold text-slate-950">
+                <h3 className="font-display text-xl font-bold text-slate-950">
                   {current.name}
-                </h4>
+                </h3>
                 <span className="text-xs px-2.5 py-0.5 rounded-full bg-pink-50 text-[#e91e63] font-semibold">
                   {current.category}
                 </span>

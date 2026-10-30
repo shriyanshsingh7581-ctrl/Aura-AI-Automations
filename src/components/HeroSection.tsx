@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GenEmojiAvatar } from './GenEmojiAvatar';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { AvatarDisplay } from './AvatarDisplay';
+import { ArrowUpRight, Sparkles, Zap } from 'lucide-react';
 
 interface HeroSectionProps {
   onOpenBooking?: () => void;
@@ -65,14 +65,52 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           <span className="font-bold text-[#e91e63]">Sarvam AI Startup Program</span>
         </motion.div>
 
-        {/* Central Visual: Big 3D GenEmoji Avatar (Face of the Portfolio as in Video) */}
+        {/* Central Visual: 3D Avatar Hero Portrait with Floating Badges */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-6 relative"
+          className="mb-6 relative flex items-center justify-center"
         >
-          <GenEmojiAvatar variant="hero" />
+          {/* Ambient Glow */}
+          <div className="absolute inset-0 -m-8 bg-gradient-to-tr from-pink-500/20 via-rose-400/10 to-amber-300/10 rounded-full blur-3xl -z-10 animate-pulse-subtle" />
+
+          {/* Floating Badges */}
+          <motion.div
+            animate={{ y: [-4, 6, -4], rotate: [-1, 2, -1] }}
+            transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
+            className="absolute -top-3 -left-10 sm:-left-16 z-20 hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 shadow-[0_8px_20px_rgba(0,0,0,0.06)] border border-slate-200/80 text-xs font-semibold text-slate-800 backdrop-blur-md"
+          >
+            <div className="w-2 h-2 rounded-full bg-[#e91e63] animate-ping" />
+            <span>OmniDimension AI</span>
+          </motion.div>
+
+          <motion.div
+            animate={{ y: [6, -6, 6], rotate: [2, -2, 2] }}
+            transition={{ repeat: Infinity, duration: 5.2, ease: 'easeInOut', delay: 0.8 }}
+            className="absolute -bottom-2 -right-10 sm:-right-16 z-20 hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 shadow-[0_8px_20px_rgba(0,0,0,0.06)] border border-slate-200/80 text-xs font-semibold text-slate-800 backdrop-blur-md"
+          >
+            <Zap className="w-3.5 h-3.5 text-[#e91e63]" />
+            <span>Sarvam AI Backed</span>
+          </motion.div>
+
+          <motion.div
+            animate={{ y: [-5, 5, -5] }}
+            transition={{ repeat: Infinity, duration: 4.8, ease: 'easeInOut', delay: 1.4 }}
+            className="absolute top-1/2 -right-12 sm:-right-20 z-20 hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 text-white text-[11px] font-medium shadow-lg"
+          >
+            <Sparkles className="w-3 h-3 text-pink-400" />
+            <span>3D Spatial Web</span>
+          </motion.div>
+
+          {/* 3D Avatar Hero Portrait */}
+          <AvatarDisplay
+            src="/avatars/avatar-hero.png"
+            alt="Aura AI Automations Founder & AI Engineer"
+            size="lg"
+            priority={true}
+            className="py-1"
+          />
         </motion.div>
 
         {/* Main Headline */}

@@ -1,6 +1,6 @@
 {
   "name": "Aura AI Automations",
-  "description": "Turning ideas into scalable code & automated AI systems. AI voice receptionists, 3D websites, and cloud automation.",
+  "description": "Automate business calls, customer support, WhatsApp inquiries and lead generation with Aura AI Automations. AI Receptionist and Voice Agents for Indian businesses.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

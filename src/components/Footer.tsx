@@ -1,13 +1,44 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
 import { AuraLogo } from './AuraLogo';
 import { SocialButtonsRow } from './SocialLinks';
+import { ALL_SERVICE_PAGES_LIST } from '../data/seoPages';
 
 interface FooterProps {
   onOpenBooking: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onNavigate }) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (
+      !onNavigate ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey ||
+      e.button !== 0
+    ) {
+      return;
+    }
+
+    const isSamePageHash =
+      (window.location.pathname === '/' || window.location.pathname === '') &&
+      href.startsWith('/#');
+
+    if (isSamePageHash) {
+      const targetId = href.replace('/#', '');
+      const el = document.getElementById(targetId);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+
+    e.preventDefault();
+    onNavigate(href);
+  };
+
   return (
     <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,10 +49,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
             <div className="py-1">
-              <AuraLogo height={40} theme="dark" />
+              <a
+                href="/"
+                onClick={(e) => handleLinkClick(e, '/')}
+                aria-label="Aura AI Automations Home"
+                className="inline-block"
+              >
+                <AuraLogo height={40} theme="dark" />
+              </a>
             </div>
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
-              Turning ideas into scalable code & automated AI systems. We build high-throughput AI voice receptionists, spatial 3D web flagships, and autonomous cloud workflows.
+              Turning ideas into scalable code &amp; automated AI systems. We build high-throughput AI voice receptionists, WhatsApp AI chatbots, spatial 3D web flagships, and autonomous cloud workflows for Indian businesses.
             </p>
             <div className="pt-2 flex flex-col gap-3">
               <span className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 w-fit">
@@ -36,35 +74,30 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Dedicated Service Pages (Crawlable Internal Links) */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              Capabilities
-            </h4>
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white">
+              AI Services &amp; Solutions
+            </h2>
             <ul className="space-y-2 text-sm">
+              {ALL_SERVICE_PAGES_LIST.map((sp) => (
+                <li key={sp.slug}>
+                  <a
+                    href={sp.path}
+                    onClick={(e) => handleLinkClick(e, sp.path)}
+                    className="hover:text-white transition-colors"
+                  >
+                    {sp.shortTitle}
+                  </a>
+                </li>
+              ))}
               <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  AI Voice Receptionists
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  3D Spatial Web Experiences
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  Cross-Platform Mobile Apps
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  Cloud GPU Infrastructure
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  Self-Hosted n8n Pipelines
+                <a
+                  href="/#services"
+                  onClick={(e) => handleLinkClick(e, '/#services')}
+                  className="hover:text-white transition-colors"
+                >
+                  Business Workflow Automation
                 </a>
               </li>
             </ul>
@@ -72,23 +105,35 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
 
           {/* Featured Works & Contact */}
           <div className="md:col-span-4 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              Originals & Contact
-            </h4>
+            <h2 className="text-xs font-bold uppercase tracking-wider text-white">
+              Originals &amp; Contact
+            </h2>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#originals" className="hover:text-white transition-colors">
+                <a
+                  href="/#originals"
+                  onClick={(e) => handleLinkClick(e, '/#originals')}
+                  className="hover:text-white transition-colors"
+                >
                   Riya.ai (Multimodal Companion)
                 </a>
               </li>
               <li>
-                <a href="#originals" className="hover:text-white transition-colors">
+                <a
+                  href="/#originals"
+                  onClick={(e) => handleLinkClick(e, '/#originals')}
+                  className="hover:text-white transition-colors"
+                >
                   MikMok (Dynamic Video Engine)
                 </a>
               </li>
               <li>
-                <a href="#originals" className="hover:text-white transition-colors">
-                  Workflow Automations (n8n & Firebase)
+                <a
+                  href="/#originals"
+                  onClick={(e) => handleLinkClick(e, '/#originals')}
+                  className="hover:text-white transition-colors"
+                >
+                  Workflow Automations (n8n &amp; Firebase)
                 </a>
               </li>
               <li>
@@ -118,11 +163,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Aura AI Automations. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <a href="#about" className="hover:text-slate-400 transition-colors">About</a>
-            <a href="#services" className="hover:text-slate-400 transition-colors">Services</a>
-            <a href="#tech-stack" className="hover:text-slate-400 transition-colors">Ecosystem</a>
-            <a href="#contact" className="hover:text-slate-400 transition-colors">Contact</a>
+          <div className="flex flex-wrap items-center gap-6">
+            <a href="/#about" onClick={(e) => handleLinkClick(e, '/#about')} className="hover:text-slate-400 transition-colors">About</a>
+            <a href="/#services" onClick={(e) => handleLinkClick(e, '/#services')} className="hover:text-slate-400 transition-colors">Services</a>
+            <a href="/#tech-stack" onClick={(e) => handleLinkClick(e, '/#tech-stack')} className="hover:text-slate-400 transition-colors">Ecosystem</a>
+            <a href="/#contact" onClick={(e) => handleLinkClick(e, '/#contact')} className="hover:text-slate-400 transition-colors">Contact</a>
+            <a href="/sitemap.xml" className="hover:text-slate-400 transition-colors">Sitemap</a>
             <button
               onClick={onOpenBooking}
               className="text-[#e91e63] font-semibold hover:underline cursor-pointer"
