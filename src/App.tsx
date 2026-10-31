@@ -133,6 +133,7 @@ export default function App() {
               onOpenBooking={() => setBookingOpen(true)}
               onExploreOriginals={scrollToOriginals}
               onTestVoiceAgent={() => setVoiceSimOpen(true)}
+              onNavigate={handleNavigate}
             />
 
             {/* 2. About Us / Company Introduction Section */}

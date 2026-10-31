@@ -286,13 +286,24 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
 
                 {/* Action CTA */}
                 <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <button
-                    onClick={onOpenBooking}
-                    className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#d90429] bg-white hover:bg-red-50 rounded-full transition-all shadow-md cursor-pointer"
-                  >
-                    <span>Request Proposal for {currentService.name}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  {currentService.id === 'voice' ? (
+                    <a
+                      href="/ai-receptionist"
+                      onClick={(e) => handleServiceLinkClick(e, '/ai-receptionist')}
+                      className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#d90429] bg-white hover:bg-red-50 rounded-full transition-all shadow-md cursor-pointer"
+                    >
+                      <span>Explore Our AI Receptionist</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  ) : (
+                    <button
+                      onClick={onOpenBooking}
+                      className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#d90429] bg-white hover:bg-red-50 rounded-full transition-all shadow-md cursor-pointer"
+                    >
+                      <span>Request Proposal for {currentService.name}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  )}
                   <a
                     href="https://app.auraai.sbs"
                     target="_blank"

@@ -81,6 +81,10 @@ function buildHomepageSemanticHtml() {
       <section>
         <h1>Aura AI Automations</h1>
         <p>Automate business calls, customer support, WhatsApp inquiries and lead generation with Aura AI Automations. AI Receptionist and Voice Agents for Indian businesses.</p>
+        <div class="hero-actions">
+          <a href="https://app.auraai.sbs">Create Voice Calling Agent</a>
+          <a href="/ai-receptionist">Explore Our AI Receptionist</a>
+        </div>
         <img src="/avatars/avatar-hero.png" alt="Aura AI Automations Founder &amp; AI Engineer" width="800" height="800" />
       </section>
       <section id="about">

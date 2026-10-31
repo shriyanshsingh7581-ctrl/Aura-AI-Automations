@@ -1,15 +1,16 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { AvatarDisplay } from './AvatarDisplay';
-import { ArrowUpRight, Sparkles, Zap } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Sparkles, Zap } from 'lucide-react';
 
 interface HeroSectionProps {
   onOpenBooking?: () => void;
   onExploreOriginals?: () => void;
   onTestVoiceAgent?: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = () => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
   const redPillTags = [
     '// AI VOICE RECEPTIONISTS',
     '// SARVAM AI STARTUP PROGRAM',
@@ -29,6 +30,21 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
     '// VERCEL EDGE RUNTIME',
     '// MULTILINGUAL LLMS',
   ];
+
+  const handleInternalClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (
+      !onNavigate ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey ||
+      e.button !== 0
+    ) {
+      return;
+    }
+    e.preventDefault();
+    onNavigate(href);
+  };
 
   return (
     <section className="relative pt-6 pb-16 md:pt-10 md:pb-24 overflow-hidden bg-[#faf9f6]">
@@ -135,27 +151,36 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           Engineering robust full-stack web solutions, scalable microservices, and AI-driven platforms with clean architecture and modern tools.
         </motion.p>
 
-        {/* Single Prominent Button: Create Voice Calling Agent (Direct to app.auraai.sbs) */}
+        {/* Prominent Hero CTAs: Platform Builder & Crawlable Internal Link to AI Receptionist */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-col items-center justify-center w-full mb-12 space-y-2"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full mb-3"
         >
           <a
             href="https://app.auraai.sbs"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4.5 text-sm sm:text-base font-bold uppercase tracking-wider text-white bg-[#e91e63] hover:bg-[#d81557] active:scale-98 rounded-full transition-all shadow-[0_12px_28px_rgba(233,30,99,0.36)] hover:shadow-[0_16px_36px_rgba(233,30,99,0.48)] cursor-pointer group"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 text-sm sm:text-base font-bold uppercase tracking-wider text-white bg-[#e91e63] hover:bg-[#d81557] active:scale-98 rounded-full transition-all shadow-[0_12px_28px_rgba(233,30,99,0.36)] hover:shadow-[0_16px_36px_rgba(233,30,99,0.48)] cursor-pointer group"
           >
             <Sparkles className="w-4 h-4 text-white" />
             <span>Create Voice Calling Agent</span>
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
-          <span className="text-[11px] text-slate-400 font-medium">
-            Launch platform on <span className="text-slate-600 font-bold font-mono">app.auraai.sbs</span>
-          </span>
+
+          <a
+            href="/ai-receptionist"
+            onClick={(e) => handleInternalClick(e, '/ai-receptionist')}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 text-sm sm:text-base font-bold tracking-tight text-slate-900 bg-white hover:bg-slate-50 hover:text-[#e91e63] active:scale-98 rounded-full border border-slate-300/90 hover:border-[#e91e63]/40 transition-all shadow-xs cursor-pointer group"
+          >
+            <span>Explore Our AI Receptionist</span>
+            <ArrowRight className="w-4 h-4 text-[#e91e63] group-hover:translate-x-1 transition-transform" />
+          </a>
         </motion.div>
+        <span className="text-[11px] text-slate-400 font-medium mb-12 text-center">
+          Automate calls 24/7 or launch builder on <span className="text-slate-600 font-bold font-mono">app.auraai.sbs</span>
+        </span>
 
         {/* Dynamic Horizontal Scrolling Pill Tags (Exact Video Match with Red & Black Pills) */}
         <div className="w-full overflow-hidden pt-2 pb-1 relative">
