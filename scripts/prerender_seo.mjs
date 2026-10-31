@@ -85,7 +85,7 @@ function buildHomepageSemanticHtml() {
           <a href="https://app.auraai.sbs">Create Voice Calling Agent</a>
           <a href="/ai-receptionist">Explore Our AI Receptionist</a>
         </div>
-        <img src="/avatars/avatar-hero.png" alt="Aura AI Automations Founder &amp; AI Engineer" width="800" height="800" />
+        <img src="/aura-founder-photo.webp" alt="Founder of Aura AI Automations" width="1024" height="1536" />
       </section>
       <section id="about">
         <h2>We engineer autonomous systems that turn ideas into scalable code.</h2>

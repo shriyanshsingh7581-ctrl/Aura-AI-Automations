@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { AvatarDisplay } from './AvatarDisplay';
 import { ArrowUpRight, ArrowRight, Sparkles, Zap } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -119,14 +118,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             <span>3D Spatial Web</span>
           </motion.div>
 
-          {/* 3D Avatar Hero Portrait */}
-          <AvatarDisplay
-            src="/avatars/avatar-hero.png"
-            alt="Aura AI Automations Founder & AI Engineer"
-            size="lg"
-            priority={true}
-            className="py-1"
-          />
+          {/* Founder Hero Photograph */}
+          <div className="relative bg-white rounded-3xl p-2 sm:p-2.5 shadow-[0_14px_36px_rgba(15,23,42,0.07)] border border-slate-200/75 flex items-center justify-center overflow-hidden">
+            <div className="w-48 h-56 sm:w-56 sm:h-68 md:w-64 md:h-76 flex items-center justify-center">
+              <picture className="w-full h-full flex items-center justify-center">
+                <source srcSet="/aura-founder-photo.avif" type="image/avif" />
+                <source srcSet="/aura-founder-photo.webp" type="image/webp" />
+                <img
+                  src="/aura-founder-photo.webp"
+                  alt="Founder of Aura AI Automations"
+                  width={1024}
+                  height={1536}
+                  loading="eager"
+                  decoding="sync"
+                  fetchPriority="high"
+                  className="w-full h-full object-contain object-center select-none"
+                />
+              </picture>
+            </div>
+          </div>
         </motion.div>
 
         {/* Main Headline */}
