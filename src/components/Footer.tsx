@@ -111,6 +111,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onNavigate }) => 
             <ul className="space-y-2 text-sm">
               <li>
                 <a
+                  href="/portfolio"
+                  onClick={(e) => handleLinkClick(e, '/portfolio')}
+                  className="text-sky-400 hover:text-sky-300 font-semibold transition-colors"
+                >
+                  Our Portfolio (Shriyansh Singh Rajpoot)
+                </a>
+              </li>
+              <li>
+                <a
                   href="/#originals"
                   onClick={(e) => handleLinkClick(e, '/#originals')}
                   className="hover:text-white transition-colors"
@@ -165,6 +174,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onNavigate }) => 
           <p>© {new Date().getFullYear()} Aura AI Automations. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-6">
             <a href="/#about" onClick={(e) => handleLinkClick(e, '/#about')} className="hover:text-slate-400 transition-colors">About</a>
+            <a href="/portfolio" onClick={(e) => handleLinkClick(e, '/portfolio')} className="hover:text-slate-400 transition-colors">Our Portfolio</a>
             <a href="/#services" onClick={(e) => handleLinkClick(e, '/#services')} className="hover:text-slate-400 transition-colors">Services</a>
             <a href="/#tech-stack" onClick={(e) => handleLinkClick(e, '/#tech-stack')} className="hover:text-slate-400 transition-colors">Ecosystem</a>
             <a href="/#contact" onClick={(e) => handleLinkClick(e, '/#contact')} className="hover:text-slate-400 transition-colors">Contact</a>

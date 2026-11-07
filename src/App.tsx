@@ -10,12 +10,14 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { SeoHead } from './components/SeoHead';
 import { ServiceLandingPage } from './components/ServiceLandingPage';
+import { PortfolioPage } from './components/PortfolioPage';
 import {
   HOME_SEO,
   SERVICE_PAGES,
   getHomepageJsonLd,
   getServicePageJsonLd,
 } from './data/seoPages';
+import { PORTFOLIO_SEO, getPortfolioJsonLd } from './data/portfolioData';
 
 const VoiceSimulatorModal = lazy(() =>
   import('./components/VoiceSimulatorModal').then((m) => ({
@@ -77,7 +79,7 @@ export default function App() {
         el.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      window.history.pushState({}, '', '/');
+      window.history.pushState({}, '', nextPath);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -90,12 +92,22 @@ export default function App() {
   };
 
   const slug = currentPath.startsWith('/') ? currentPath.slice(1) : currentPath;
+  const isPortfolioRoute = currentPath === '/portfolio';
   const activeServicePage = SERVICE_PAGES[slug] || null;
 
   return (
     <div className="min-h-screen bg-[#faf9f6] text-[#0f172a] flex flex-col font-sans selection:bg-[#e91e63] selection:text-white">
       {/* Dynamic SEO Head & Structured Data */}
-      {activeServicePage ? (
+      {isPortfolioRoute ? (
+        <SeoHead
+          title={PORTFOLIO_SEO.title}
+          description={PORTFOLIO_SEO.description}
+          canonicalUrl={PORTFOLIO_SEO.canonicalUrl}
+          ogType={PORTFOLIO_SEO.ogType}
+          ogImage={PORTFOLIO_SEO.ogImage}
+          jsonLd={getPortfolioJsonLd()}
+        />
+      ) : activeServicePage ? (
         <SeoHead
           title={activeServicePage.seoTitle}
           description={activeServicePage.metaDescription}
@@ -115,11 +127,17 @@ export default function App() {
       <Navbar
         onOpenBooking={() => setBookingOpen(true)}
         onNavigate={handleNavigate}
+        currentPath={currentPath}
       />
 
       {/* Main Content */}
       <main className="flex-1">
-        {activeServicePage ? (
+        {isPortfolioRoute ? (
+          <PortfolioPage
+            onNavigate={handleNavigate}
+            onOpenBooking={() => setBookingOpen(true)}
+          />
+        ) : activeServicePage ? (
           <ServiceLandingPage
             page={activeServicePage}
             onNavigate={handleNavigate}

@@ -9,6 +9,13 @@ import {
   getHomepageJsonLd,
   getServicePageJsonLd,
 } from '../src/data/seoPages.ts';
+import {
+  PORTFOLIO_SEO,
+  FOUNDER_PROFILE,
+  PORTFOLIO_PROJECTS,
+  PORTFOLIO_SERVICES,
+  getPortfolioJsonLd,
+} from '../src/data/portfolioData.ts';
 
 const distDir = path.resolve('dist');
 const publicDir = path.resolve('public');
@@ -25,6 +32,7 @@ function buildSitemapXml() {
   const today = new Date().toISOString().split('T')[0];
   const urls = [
     { loc: `${SITE_URL}/`, priority: '1.0', changefreq: 'weekly' },
+    { loc: `${SITE_URL}/portfolio`, priority: '0.95', changefreq: 'weekly' },
     ...ALL_SERVICE_PAGES_LIST.map((p) => ({
       loc: p.canonicalUrl,
       priority: p.slug.includes('-for-') ? '0.85' : '0.9',
@@ -69,10 +77,9 @@ function buildHomepageSemanticHtml() {
       <nav aria-label="Primary Navigation">
         <a href="/">Aura AI Automations</a>
         <a href="/#about">Company</a>
-        <a href="/#impact">Milestones</a>
         <a href="/#services">Services</a>
+        <a href="/portfolio">Our Portfolio</a>
         <a href="/#originals">Originals</a>
-        <a href="/#tech-stack">Tech Stack</a>
         <a href="/#contact">Contact</a>
         <a href="https://app.auraai.sbs">Create Voice Calling Agent</a>
       </nav>
@@ -84,6 +91,7 @@ function buildHomepageSemanticHtml() {
         <div class="hero-actions">
           <a href="https://app.auraai.sbs">Create Voice Calling Agent</a>
           <a href="/ai-receptionist">Explore Our AI Receptionist</a>
+          <a href="/portfolio">Our Portfolio</a>
         </div>
         <img src="/aura-founder-photo.webp" alt="Founder of Aura AI Automations" width="1024" height="1536" />
       </section>
@@ -294,7 +302,73 @@ function run() {
   fs.writeFileSync(baseTemplatePath, homeHtml, 'utf-8');
   console.log('Pre-rendered dist/index.html');
 
-  // 3. Generate pre-rendered HTML for all 5 dedicated service routes
+  // 3. Pre-render /portfolio dedicated developer & agency portfolio page
+  const portfolioProjectsHtml = PORTFOLIO_PROJECTS.map(
+    (proj) =>
+      `<article><h3>${escapeHtml(proj.name)} (${escapeHtml(proj.location)}) — ${escapeHtml(proj.category)}</h3><p>${escapeHtml(proj.shortDescription)}</p><p>Technologies: ${escapeHtml(proj.technologies.join(', '))}</p><a href="${proj.liveUrl}">Live Website</a> <a href="${proj.liveUrl}">View Project</a></article>`
+  ).join('\n          ');
+
+  const portfolioServicesHtml = PORTFOLIO_SERVICES.map(
+    (svc) =>
+      `<div><h3>${escapeHtml(svc.title)}</h3><p>${escapeHtml(svc.description)}</p></div>`
+  ).join('\n          ');
+
+  const portfolioRootHtml = `<div class="min-h-screen bg-[#060913] text-slate-100 flex flex-col font-sans">
+    <header>
+      <nav aria-label="Primary Navigation">
+        <a href="/">Aura AI Automations</a>
+        <a href="/#about">Company</a>
+        <a href="/#services">Services</a>
+        <a href="/portfolio">Our Portfolio</a>
+        <a href="/#originals">Originals</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <h1>${escapeHtml(FOUNDER_PROFILE.heroHeadline)}</h1>
+        <p>${escapeHtml(FOUNDER_PROFILE.heroSupportingText)}</p>
+        <p>Founder: ${escapeHtml(FOUNDER_PROFILE.founderName)} — ${escapeHtml(FOUNDER_PROFILE.roleTitle)} (${escapeHtml(FOUNDER_PROFILE.architectTitle)})</p>
+        <img src="${FOUNDER_PROFILE.portraitSrc}" alt="${escapeHtml(FOUNDER_PROFILE.portraitAlt)}" width="1024" height="1536" />
+      </section>
+      <section>
+        <h2>About ${escapeHtml(FOUNDER_PROFILE.founderName)}</h2>
+        ${FOUNDER_PROFILE.introductionParagraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join('\n        ')}
+      </section>
+      <section>
+        <h2>My Services</h2>
+        ${portfolioServicesHtml}
+      </section>
+      <section>
+        <h2>Featured Projects Delivered Across India</h2>
+        ${portfolioProjectsHtml}
+      </section>
+      <section>
+        <h2>Digital Solutions for Businesses Across India</h2>
+        <p>We build modern digital experiences for startups, growing businesses, and established organizations across Delhi NCR, Mumbai, Bengaluru, Indore, Hyderabad, Pune, Bhopal, and Across India.</p>
+      </section>
+      <section>
+        <h2>Contact ${escapeHtml(FOUNDER_PROFILE.founderName)} — Aura AI Automations</h2>
+        <p>WhatsApp: <a href="${FOUNDER_PROFILE.whatsappHref}">${FOUNDER_PROFILE.whatsappNumber}</a></p>
+        <p>Website: <a href="https://www.auraaiautomation.online/">https://www.auraaiautomation.online/</a></p>
+      </section>
+    </main>
+  </div>`;
+
+  const portfolioHtml = injectRouteSeoIntoHtml(baseTemplateHtml, {
+    title: PORTFOLIO_SEO.title,
+    description: PORTFOLIO_SEO.description,
+    canonicalUrl: PORTFOLIO_SEO.canonicalUrl,
+    jsonLd: getPortfolioJsonLd(),
+    rootHtml: portfolioRootHtml,
+  });
+  const portfolioDir = path.join(distDir, 'portfolio');
+  fs.mkdirSync(portfolioDir, { recursive: true });
+  fs.writeFileSync(path.join(portfolioDir, 'index.html'), portfolioHtml, 'utf-8');
+  fs.writeFileSync(path.join(distDir, 'portfolio.html'), portfolioHtml, 'utf-8');
+  console.log('Pre-rendered dist/portfolio/index.html');
+
+  // 4. Generate pre-rendered HTML for all 5 dedicated service routes
   for (const page of ALL_SERVICE_PAGES_LIST) {
     const routeHtml = injectRouteSeoIntoHtml(baseTemplateHtml, {
       title: page.seoTitle,

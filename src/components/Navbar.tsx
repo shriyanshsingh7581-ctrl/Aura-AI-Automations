@@ -7,17 +7,18 @@ import { ALL_SERVICE_PAGES_LIST } from '../data/seoPages';
 interface NavbarProps {
   onOpenBooking?: () => void;
   onNavigate?: (path: string) => void;
+  currentPath?: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPath = '/' }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isPortfolioPage = currentPath === '/portfolio';
 
   const navLinks = [
     { label: 'Company', href: '/#about' },
-    { label: 'Milestones', href: '/#impact' },
     { label: 'Services', href: '/#services' },
+    { label: 'Our Portfolio', href: '/portfolio' },
     { label: 'Originals', href: '/#originals' },
-    { label: 'Tech Stack', href: '/#tech-stack' },
     { label: 'Contact', href: '/#contact' },
   ];
 
@@ -52,7 +53,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#faf9f6]/90 border-b border-slate-200/70 transition-all">
+    <header
+      className={`sticky top-0 z-50 w-full backdrop-blur-md transition-all border-b ${
+        isPortfolioPage
+          ? 'bg-[#060913]/90 border-white/[0.08]'
+          : 'bg-[#faf9f6]/90 border-slate-200/70'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-8">
         
         {/* Zone 1: Official Brand Logo */}
@@ -62,27 +69,43 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           className="group flex items-center whitespace-nowrap shrink-0 select-none py-1"
           aria-label="Aura AI Automations Home"
         >
-          <AuraLogo height={34} />
+          <AuraLogo height={34} theme={isPortfolioPage ? 'dark' : 'light'} />
         </a>
 
         {/* Zone 2: Concise single-line text links */}
-        <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className="hover:text-slate-900 transition-colors whitespace-nowrap shrink-0 relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#e91e63] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav
+          aria-label="Primary Navigation"
+          className={`hidden md:flex items-center gap-8 text-sm font-medium ${
+            isPortfolioPage ? 'text-slate-300' : 'text-slate-600'
+          }`}
+        >
+          {navLinks.map((link) => {
+            const isActive = link.href === '/portfolio' && isPortfolioPage;
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`transition-colors whitespace-nowrap shrink-0 relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:transition-transform after:origin-left ${
+                  isPortfolioPage
+                    ? isActive
+                      ? 'text-sky-400 font-semibold after:bg-sky-400 after:scale-x-100'
+                      : 'hover:text-white after:bg-sky-400 after:scale-x-0 hover:after:scale-x-100'
+                    : isActive
+                    ? 'text-[#e91e63] font-semibold after:bg-[#e91e63] after:scale-x-100'
+                    : 'hover:text-slate-900 after:bg-[#e91e63] after:scale-x-0 hover:after:scale-x-100'
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Zone 3: Socials & Primary Action */}
         <div className="flex items-center gap-3 shrink-0">
           <div className="hidden lg:flex items-center">
-            <SocialButtonsRow />
+            <SocialButtonsRow darkTheme={isPortfolioPage} />
           </div>
 
           <a
@@ -99,7 +122,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-200/60 transition-colors"
+            className={`md:hidden p-2 rounded-xl transition-colors ${
+              isPortfolioPage
+                ? 'text-slate-200 hover:bg-white/10'
+                : 'text-slate-700 hover:bg-slate-200/60'
+            }`}
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -110,7 +137,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 bg-[#faf9f6]/95 backdrop-blur-lg px-4 pt-3 pb-6 space-y-3">
+        <div
+          className={`md:hidden border-b backdrop-blur-lg px-4 pt-3 pb-6 space-y-3 ${
+            isPortfolioPage
+              ? 'border-white/10 bg-[#060913]/95 text-slate-200'
+              : 'border-slate-200 bg-[#faf9f6]/95 text-slate-700'
+          }`}
+        >
           <div className="flex flex-col space-y-1.5">
             {navLinks.map((link) => (
               <a
@@ -120,14 +153,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                   setMobileMenuOpen(false);
                   handleNavClick(e, link.href);
                 }}
-                className="px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors"
+                className={`px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+                  isPortfolioPage
+                    ? 'text-slate-200 hover:text-white hover:bg-white/10'
+                    : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
+                }`}
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          <div className="pt-2 border-t border-slate-200/80">
+          <div
+            className={`pt-2 border-t ${
+              isPortfolioPage ? 'border-white/10' : 'border-slate-200/80'
+            }`}
+          >
             <span className="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono block mb-1.5">
               Dedicated AI Solutions
             </span>
@@ -140,7 +181,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                     setMobileMenuOpen(false);
                     handleNavClick(e, sp.path);
                   }}
-                  className="px-3 py-1.5 rounded-lg text-sm font-semibold text-slate-700 hover:text-[#e91e63] hover:bg-pink-50/60 transition-colors"
+                  className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isPortfolioPage
+                      ? 'text-slate-300 hover:text-sky-400 hover:bg-white/5'
+                      : 'text-slate-700 hover:text-[#e91e63] hover:bg-pink-50/60'
+                  }`}
                 >
                   {sp.shortTitle}
                 </a>
@@ -161,7 +206,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             </a>
 
             <div className="flex items-center justify-center pt-1">
-              <SocialButtonsRow />
+              <SocialButtonsRow darkTheme={isPortfolioPage} />
             </div>
           </div>
         </div>

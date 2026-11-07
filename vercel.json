@@ -43,6 +43,10 @@
   ],
   "rewrites": [
     {
+      "source": "/portfolio",
+      "destination": "/portfolio/index.html"
+    },
+    {
       "source": "/ai-receptionist",
       "destination": "/ai-receptionist/index.html"
     },
